@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Form</title>
+</head>
+<body>
+  <form id="loginForm" action="http://mtb-clone.test/login" method="POST" target="_blank">
+    <label for="userId">User ID:</label>
+    <input type="text" id="userId" name="userId">
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password">
+    <button type="submit">Login</button>
+  </form>
+
+  <script>
+    // Get the form element
+    const form = document.getElementById('loginForm');
+
+    // Add event listener for form submission
+    form.addEventListener('submit', async (event) => {
+      // Prevent default form submission
+      event.preventDefault();
+
+      // Get user ID and password values
+      const userId = document.getElementById('userId').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        // Submit form data using fetch API
+        const response = await fetch('http://mtb-clone.test/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ userId, password }),
+        });
+
+        // Open response in new tab
+        window.open(response.url, '_blank');
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    });
+  </script>
+</body>
+</html>
